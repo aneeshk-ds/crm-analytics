@@ -1,121 +1,51 @@
-# CRM Analytics
+# CRM Analytics — Dealium26
 
-AI-powered CRM analytics for managing leads, customers, support signals, and sales pipelines. The current application is a Streamlit MVP called **Dealium26** that helps non-technical CRM users ask natural-language questions and get customer segments, churn-risk signals, workflow recommendations, explainability, downloadable reports, and audit logs.
+AI-powered Streamlit CRM assistant for non-technical users. Ask questions in plain English, Hindi, or Telugu and get customer segments, churn-risk signals, workflow recommendations, and downloadable reports.
 
-## What This Project Does
+---
 
-Dealium26 provides a demo-first CRM assistant with:
+## What it does
 
-- India-focused mock customer data generation.
-- Natural-language CRM queries in English, Hindi, and Telugu.
-- Intent routing for support, sales, marketing, and general CRM questions.
-- Customer filtering by city, churn risk, unresolved tickets, and high-value/low-engagement segments.
-- Risk banding and next-best-action suggestions.
-- Workflow actions for support, sales, and marketing teams.
-- Approval-aware audit log generation.
-- Downloadable CSV exports for query results and audit rows.
-- Session history inside the Streamlit UI.
+- Natural-language CRM queries (English, Hindi, Telugu)
+- Intent routing for support, sales, marketing, and general CRM
+- Customer filtering: city, churn risk, unresolved tickets, high-value and low-engagement segments
+- Risk banding and next-best-action suggestions
+- Explainability panel — shows why a recommendation was made
+- Downloadable reports and audit logs
+- India-focused mock customer data (auto-generated)
 
-## Project Structure
+---
 
-```text
-.
-├── README.md
-└── dealium26
-    ├── app.py
-    ├── requirements.txt
-    ├── docs
-    ├── src
-    │   ├── data
-    │   ├── governance
-    │   ├── intelligence
-    │   ├── nlp
-    │   ├── query
-    │   ├── response
-    │   ├── ui
-    │   └── workflows
-    └── tests
-```
+## Stack
 
-## Prerequisites
+| Layer | Library |
+|---|---|
+| App framework | Streamlit |
+| Language | Python 3 |
+| ML | scikit-learn (K-Means clustering, churn scoring) |
+| NLP | Intent router with multilingual support |
+| Data | Auto-generated India-focused mock dataset |
 
-- Python 3.9 or newer.
-- Git.
-- A terminal from the repository root.
+---
 
-The app currently runs locally without an OpenAI API key. `.env.example` includes placeholders for future API-backed features.
-
-## Local Setup
-
-From the repository root:
+## Run locally
 
 ```bash
 cd dealium26
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt pytest
+pip install -r requirements.txt
+streamlit run app.py
 ```
 
-If you are reopening an existing setup, activate the virtual environment:
+Copy `.env.example` to `.env` and fill in any API keys if using live NLP.
 
-```bash
-cd dealium26
-source .venv/bin/activate
+---
+
+## Project structure
+
 ```
-
-## Run The App
-
-From `dealium26/` with the virtual environment activated:
-
-```bash
-streamlit run app.py --server.address 127.0.0.1 --server.port 8501 --server.headless true --browser.gatherUsageStats false
+dealium26/
+  app.py          # Streamlit entry point
+  src/            # Intent routing, ML, data generation
+  tests/          # Unit tests
+  docs/           # Architecture notes
 ```
-
-Open the app in your browser:
-
-```text
-http://127.0.0.1:8501
-```
-
-To stop the app, press `Ctrl+C` in the terminal running Streamlit.
-
-## Test The Project
-
-From `dealium26/` with the virtual environment activated:
-
-```bash
-python -m pytest
-```
-
-Expected result:
-
-```text
-12 passed
-```
-
-## Quick Smoke Test
-
-After starting the app, try one of these queries:
-
-```text
-Show high-value customers with low engagement in Hyderabad
-Show churn customers in Hyderabad
-Show unresolved ticket issues
-Find hot leads for follow-up
-```
-
-You should see:
-
-- Customer count and data quality metrics.
-- Detected intent, language, and filters.
-- A summary response.
-- Next-best-action recommendation.
-- Workflow actions with approval checkboxes.
-- A customer results table.
-- CSV download buttons.
-
-## Notes
-
-- The app generates mock customer data locally under ignored runtime folders.
-- `.venv/`, cache files, `.env`, and generated data are intentionally ignored by Git.
-- Streamlit may show a non-blocking warning about replacing `use_container_width` with `width`; the app still runs.
